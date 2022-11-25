@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private Vector2 movement;
     private CharacterController myChar;
     public GameObject player;
+    public bool atkMode;
+    private Vector2 destination;
 
     public int health;
 
@@ -35,6 +37,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        destination = player.transform.position;
 
         if (health <= 0)
         {
@@ -46,41 +49,56 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(WaitSeconds());
         }
-        
-        //if random number is within ranges, assign move direction
-        if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 1 && randNum <= 5)
-        {
-            movement.x = 1.0f;
-            StartCoroutine(MoveSeconds());
-        }
-        else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 6 && randNum <= 10)
-        {
-            movement.x = -1.0f;
-            StartCoroutine(MoveSeconds());
-        }
-        else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 11 && randNum <= 15)
-        {
-            movement.y = 1.0f;
-            StartCoroutine(MoveSeconds());
-        }
-        else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 16 && randNum <= 20)
-        {
-            movement.y = -1.0f;
-            StartCoroutine(MoveSeconds());
-        }
 
-        //when done moving, return randNum to 0 and stop movement
-        if (doneMoving)
+        if (!atkMode)
         {
-            randNum = 0;
-            movement.y = 0.0f;
-            movement.x = 0.0f;
+            //if random number is within ranges, assign move direction
+            if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 1 && randNum <= 5)
+            {
+                movement.x = 1.0f;
+                StartCoroutine(MoveSeconds());
+            }
+            else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 6 && randNum <= 10)
+            {
+                movement.x = -1.0f;
+                StartCoroutine(MoveSeconds());
+            }
+            else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 11 && randNum <= 15)
+            {
+                movement.y = 1.0f;
+                StartCoroutine(MoveSeconds());
+            }
+            else if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 16 && randNum <= 20)
+            {
+                movement.y = -1.0f;
+                StartCoroutine(MoveSeconds());
+            }
+            else if (atkMode)
+            {
+                //transform.LookAt(player.transform);
+            }
+
+            //when done moving, return randNum to 0 and stop movement
+            if (doneMoving)
+            {
+                randNum = 0;
+                movement.y = 0.0f;
+                movement.x = 0.0f;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (!atkMode)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+        else if (atkMode)
+        {
+            Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, Time.fixedDeltaTime * moveSpeed);
+            rb.MovePosition(newPosition);
+        }
     }
 
     void rando()
