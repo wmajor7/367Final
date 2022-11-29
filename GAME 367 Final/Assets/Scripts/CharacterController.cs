@@ -13,6 +13,8 @@ public class CharacterController : MonoBehaviour
     public float runSpeed = 5.0f;
 
     public int health = 12;
+    public int maxHealth = 12;
+    public HealthBar healthBar;
 
     public bool canMove;
     public bool isAttacking;
@@ -34,6 +36,8 @@ public class CharacterController : MonoBehaviour
         canMove = true;
         hitBox.SetActive(false);
         charSFX = SFXMngr.GetComponent<AudioSource>();
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame

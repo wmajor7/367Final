@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed;
 
     private int randNum;
+    public HealthBar healthBar;
 
     private bool waiting;
     private bool doneMoving;
@@ -133,6 +134,7 @@ public class Enemy : MonoBehaviour
         else if (other.gameObject.tag == "Player")
         {
             myChar.health -= 1;
+            healthBar.SetHealth(player.GetComponent<CharacterController>().health);
             myChar.sfx = "Hurt";
             myChar.PlaySFX();
         }
