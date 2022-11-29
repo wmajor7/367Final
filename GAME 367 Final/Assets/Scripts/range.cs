@@ -15,16 +15,13 @@ public class range : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
         if (other.gameObject.tag == "Player")
         {
             my_Enemy.atkMode = true;
-            Debug.Log(my_Enemy.atkMode);
         }
     }
 
@@ -33,7 +30,6 @@ public class range : MonoBehaviour
             if (other.gameObject.tag == "Player")
             {
                 my_Enemy.atkMode = false;
-                Debug.Log(my_Enemy.atkMode);
             }
     }
 

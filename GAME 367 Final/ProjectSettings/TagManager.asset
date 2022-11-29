@@ -7,11 +7,13 @@ TagManager:
   - Transit
   - Wall
   - hitBox
+  - SFX
+  - Bird
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Range
   - Water
   - UI
   - 

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private CharacterController myChar;
     public GameObject player;
     public bool atkMode;
+    public bool canHurt;
     private Vector2 destination;
 
     public int health;
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     private int randNum;
 
-    private bool waiting; 
+    private bool waiting;
     private bool doneMoving;
     public GameObject wallCheck1;
     public GameObject wallCheck2;
@@ -32,11 +33,13 @@ public class Enemy : MonoBehaviour
         randNum = 0;
         doneMoving = false;
         myChar = player.GetComponent<CharacterController>();
+        canHurt = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         destination = player.transform.position;
 
         if (health <= 0)
@@ -130,10 +133,39 @@ public class Enemy : MonoBehaviour
         else if (other.gameObject.tag == "Player")
         {
             myChar.health -= 1;
+            myChar.sfx = "Hurt";
+            myChar.PlaySFX();
         }
-        else if (other.gameObject.tag == "hitBox")
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "hitBox")
+        {
+            if (canHurt)
+            {
+                TakeDMG();
+                myChar.sfx = "Hit";
+                myChar.PlaySFX();
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    private void TakeDMG()
+    {
+
+        Debug.Log("CALL");
+        if (canHurt == true)
         {
             health -= 1;
+        }
+        else
+        {
+            return;
         }
     }
 }
