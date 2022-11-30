@@ -9,15 +9,19 @@ public class CharacterController : MonoBehaviour
     private Vector2 movement;
     public GameObject hitBox;
     public GameObject SFXMngr;
+    public GameObject birdProj;
+    public GameObject launchOri;
 
     public float runSpeed = 5.0f;
 
     public int health = 12;
     public int maxHealth = 12;
     public HealthBar healthBar;
+    public birdController bController;
 
     public bool canMove;
     public bool isAttacking;
+    public string facing;
 
     public AudioSource charSFX;
     public AudioClip hit;
@@ -29,6 +33,10 @@ public class CharacterController : MonoBehaviour
 
     public string sfx;
 
+    public bool hasBird;
+    public float launchVelY = 700f;
+    public bool birdOnScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +46,7 @@ public class CharacterController : MonoBehaviour
         charSFX = SFXMngr.GetComponent<AudioSource>();
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        facing = "up";
     }
 
     // Update is called once per frame
@@ -46,7 +55,41 @@ public class CharacterController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetAxisRaw("Horizontal") == -1.0f)
+        {
+            facing = "left";
+        }
+        else if (Input.GetAxisRaw("Horizontal") == 1.0f)
+        {
+            facing = "right";
+        }
+        else if (Input.GetAxisRaw("Vertical") == -1.0f)
+        {
+            facing = "down";
+        }
+        else if (Input.GetAxisRaw("Vertical") == 1.0f)
+        {
+            facing = "up";
+        }
+
+        if (facing == "up")
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (facing == "left")
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (facing == "down")
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (facing == "right")
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             isAttacking = true;
             sfx = "Swing";
@@ -73,6 +116,15 @@ public class CharacterController : MonoBehaviour
             PlaySFX();
             Reload();
         }
+
+        if (hasBird == true && birdOnScreen == false && Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject bird = Instantiate(birdProj, launchOri.transform.position, launchOri.transform.rotation);
+            //bird.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, launchVelY));
+            bController = bird.GetComponent<birdController>();
+            birdOnScreen = true;
+        }
+
     }
 
     private void FixedUpdate()
@@ -117,5 +169,19 @@ public class CharacterController : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    public void birdReset()
+    {
+        birdOnScreen = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Companion")
+        {
+            birdReset();
+            Destroy(other.gameObject);
+        }
     }
 }

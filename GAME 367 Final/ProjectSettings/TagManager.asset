@@ -9,6 +9,7 @@ TagManager:
   - hitBox
   - SFX
   - Bird
+  - Companion
   layers:
   - Default
   - TransparentFX

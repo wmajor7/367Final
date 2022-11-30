@@ -147,14 +147,18 @@ public class Enemy : MonoBehaviour
             if (canHurt)
             {
                 TakeDMG();
+                StartCoroutine(Damaged());
                 myChar.sfx = "Hit";
                 myChar.PlaySFX();
             }
-            else
-            {
-                return;
-            }
         }
+    }
+
+    IEnumerator Damaged()
+    {
+        canHurt = false;
+        yield return new WaitForSeconds(1);
+        canHurt = true;
     }
 
     private void TakeDMG()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1072420047}
   - component: {fileID: 1072420046}
   - component: {fileID: 1072420048}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RangeFinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -326,8 +326,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   atkMode: 0
-  health: 2
+  canHurt: 0
+  health: 3
   moveSpeed: 2
+  healthBar: {fileID: 0}
   wallCheck1: {fileID: 2429163480335125048}
   wallCheck2: {fileID: 2429163480890303468}
   wallCheck3: {fileID: 2429163479690556724}
