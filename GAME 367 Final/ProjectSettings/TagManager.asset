@@ -10,6 +10,7 @@ TagManager:
   - SFX
   - Bird
   - Companion
+  - Undefined
   - HealthDrop
   layers:
   - Default
@@ -18,8 +19,8 @@ TagManager:
   - Range
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - WallCheck
   - 
   - 
   - 

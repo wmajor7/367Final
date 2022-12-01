@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Animations;
 
 public class CharacterController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public Rigidbody2D krb;
     private Vector2 movement;
     public GameObject hitBox;
     public GameObject SFXMngr;
     public GameObject birdProj;
     public GameObject launchOri;
+    public GameObject center;
 
     public float runSpeed = 5.0f;
 
@@ -38,6 +41,8 @@ public class CharacterController : MonoBehaviour
     public float launchVelY = 700f;
     public bool birdOnScreen;
 
+    public Animator mAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +53,7 @@ public class CharacterController : MonoBehaviour
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         facing = "up";
+        mAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -75,19 +81,23 @@ public class CharacterController : MonoBehaviour
 
         if (facing == "up")
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            center.transform.rotation = Quaternion.Euler(0, 0, 0);
+            mAnim.SetInteger("walk", 2);
         }
         else if (facing == "left")
         {
-            transform.rotation = Quaternion.Euler(0, 0, 90);
+            center.transform.rotation = Quaternion.Euler(0, 0, 90);
+            mAnim.SetInteger("walk", 3);
         }
         else if (facing == "down")
         {
-            transform.rotation = Quaternion.Euler(0, 0, 180);
+            center.transform.rotation = Quaternion.Euler(0, 0, 180);
+            mAnim.SetInteger("walk", 0);
         }
         else if (facing == "right")
         {
-            transform.rotation = Quaternion.Euler(0, 0, 270);
+            center.transform.rotation = Quaternion.Euler(0, 0, 270);
+            mAnim.SetInteger("walk", 1);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -200,6 +210,21 @@ public class CharacterController : MonoBehaviour
             sfx = "HealthPickup";
             PlaySFX();
             Destroy(other.gameObject);
+        }
+    }
+
+    public IEnumerator Knockback(float knockbackDuration, float knockbackPower, Transform obj)
+    {
+        krb = obj.GetComponent<Rigidbody2D>();
+        float timer = 0;
+
+        while (knockbackDuration > timer)
+        {
+            timer += Time.deltaTime;
+            Vector2 direction = (obj.transform.position - this.transform.position).normalized;
+            krb.AddForce(-direction * knockbackPower);
+            Debug.Log("I HAVE BEEN CALLED");
+            yield return 0;
         }
     }
 }

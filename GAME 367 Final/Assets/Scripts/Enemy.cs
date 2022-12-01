@@ -31,6 +31,9 @@ public class Enemy : MonoBehaviour
     private float dropRate;
     private float dropChance;
 
+    public float knockbackPower = 100;
+    public float knockbackDuration = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,6 +156,8 @@ public class Enemy : MonoBehaviour
         doneMoving = true;
     }
 
+
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Wall")
@@ -162,6 +167,7 @@ public class Enemy : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player")
         {
+            StartCoroutine(myChar.Knockback(knockbackDuration, knockbackPower, myChar.transform));
             myChar.health -= 1;
             healthBar.SetHealth(player.GetComponent<CharacterController>().health);
             myChar.sfx = "Hurt";
@@ -175,6 +181,7 @@ public class Enemy : MonoBehaviour
         {
             if (canHurt)
             {
+                StartCoroutine(myChar.Knockback(knockbackDuration, knockbackPower, this.transform));
                 TakeDMG();
                 StartCoroutine(Damaged());
                 myChar.sfx = "Hit";
