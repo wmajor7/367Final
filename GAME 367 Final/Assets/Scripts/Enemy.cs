@@ -26,6 +26,11 @@ public class Enemy : MonoBehaviour
     public GameObject wallCheck3;
     public GameObject wallCheck4;
 
+
+    public GameObject drop;
+    private float dropRate;
+    private float dropChance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +40,10 @@ public class Enemy : MonoBehaviour
         doneMoving = false;
         myChar = player.GetComponent<CharacterController>();
         canHurt = true;
+        dropChance = Random.Range(0f, 1f);
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -89,6 +97,27 @@ public class Enemy : MonoBehaviour
                 movement.y = 0.0f;
                 movement.x = 0.0f;
             }
+        }
+
+        if (myChar.health == myChar.maxHealth)
+        {
+            dropRate = 0;
+        }
+        else if (myChar.health < myChar.maxHealth && myChar.health >= myChar.maxHealth * 0.8)
+        {
+            dropRate = 0.1f;
+        }
+        else if (myChar.health < myChar.maxHealth * 0.8 && myChar.health >= myChar.maxHealth * 0.5)
+        {
+            dropRate = 0.25f;
+        }
+        else if (myChar.health < myChar.maxHealth * 0.5 && myChar.health >= myChar.maxHealth * 0.25)
+        {
+            dropRate = 0.50f;
+        }
+        else if (myChar.health < myChar.maxHealth * 0.25)
+        {
+            dropRate = 0.75f;
         }
     }
 
@@ -172,6 +201,14 @@ public class Enemy : MonoBehaviour
         else
         {
             return;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (dropChance <= dropRate)
+        {
+            Instantiate(drop, transform.position, drop.transform.rotation);
         }
     }
 }

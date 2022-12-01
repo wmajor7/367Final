@@ -10,6 +10,7 @@ TagManager:
   - SFX
   - Bird
   - Companion
+  - HealthDrop
   layers:
   - Default
   - TransparentFX

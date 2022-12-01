@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1cd7387750b07245a2a3f8a95f0227b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  player: {fileID: 1952063024718721374, guid: e60c043519280bb499e07242c0f2bb68, type: 3}
+  player: {fileID: 0}
+  returning: 0
   myChar: {fileID: 0}
 --- !u!1001 &2154993929451744554
 PrefabInstance:

@@ -30,6 +30,7 @@ public class CharacterController : MonoBehaviour
     public AudioClip fall;
     public AudioClip pickup;
     public AudioClip hurt;
+    public AudioClip healthPickup;
 
     public string sfx;
 
@@ -116,6 +117,11 @@ public class CharacterController : MonoBehaviour
             PlaySFX();
             Reload();
         }
+        else if (health > maxHealth)
+        {
+            health = maxHealth;
+            healthBar.SetHealth(health);
+        }
 
         if (hasBird == true && birdOnScreen == false && Input.GetKeyDown(KeyCode.F))
         {
@@ -161,6 +167,10 @@ public class CharacterController : MonoBehaviour
         {
             charSFX.clip = hurt;
         }
+        else if (sfx == "HealthPickup")
+        {
+            charSFX.clip = healthPickup;
+        }
 
         charSFX.Play();
     }
@@ -181,6 +191,14 @@ public class CharacterController : MonoBehaviour
         if (other.gameObject.tag == "Companion")
         {
             birdReset();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "HealthDrop")
+        {
+            health += 2;
+            healthBar.SetHealth(health);
+            sfx = "HealthPickup";
+            PlaySFX();
             Destroy(other.gameObject);
         }
     }

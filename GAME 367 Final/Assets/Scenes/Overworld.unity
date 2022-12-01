@@ -1635,6 +1635,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1908247751}
+    - target: {fileID: 1952063024718721360, guid: e60c043519280bb499e07242c0f2bb68, type: 3}
+      propertyPath: healthPickup
+      value: 
+      objectReference: {fileID: 8300000, guid: c683e1c45db225d45bd0f804170954e7, type: 3}
     - target: {fileID: 1952063024718721362, guid: e60c043519280bb499e07242c0f2bb68, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1740,6 +1744,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2429163480177309546, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
+      propertyPath: drop
+      value: 
+      objectReference: {fileID: 3432607549159066905, guid: 187c006d6f58c274ca53e156cb1d58cc, type: 3}
     - target: {fileID: 2429163480177309546, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
       propertyPath: player
       value: 
