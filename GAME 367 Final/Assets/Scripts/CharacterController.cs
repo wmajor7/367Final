@@ -211,6 +211,15 @@ public class CharacterController : MonoBehaviour
             PlaySFX();
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.tag == "HealthUpgrade")
+        {
+            maxHealth += 1;
+            health = maxHealth;
+            healthBar.SetHealth(health);
+            sfx = "HealthPickup";
+            PlaySFX();
+            Destroy(other.gameObject);
+        }
     }
 
     public IEnumerator Knockback(float knockbackDuration, float knockbackPower, Transform obj)

@@ -12,6 +12,7 @@ TagManager:
   - Companion
   - Undefined
   - HealthDrop
+  - HealthUpgrade
   layers:
   - Default
   - TransparentFX

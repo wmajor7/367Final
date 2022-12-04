@@ -160,7 +160,7 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Wall")
+        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Enemy")
         {
             movement.x *= -1;
             movement.y *= -1;
