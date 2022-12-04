@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
     public float knockbackPower = 100;
     public float knockbackDuration = 1;
 
+    private float timeSinceAtk = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,17 +49,11 @@ public class Enemy : MonoBehaviour
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
-
+        timeSinceAtk += Time.deltaTime;
         destination = player.transform.position;
-
-        if (health <= 0)
-        {
-            Destroy(this.gameObject);
-        }
 
         //if the random number is zero, wait 2 seconds and assign a new random number
         if (randNum == 0)
@@ -88,10 +84,7 @@ public class Enemy : MonoBehaviour
                 movement.y = -1.0f;
                 StartCoroutine(MoveSeconds());
             }
-            else if (atkMode)
-            {
-                //transform.LookAt(player.transform);
-            }
+
 
             //when done moving, return randNum to 0 and stop movement
             if (doneMoving)
@@ -122,6 +115,15 @@ public class Enemy : MonoBehaviour
         {
             dropRate = 0.75f;
         }
+
+        if (health <= 0)
+        {
+            if (dropChance <= dropRate)
+            {
+                Instantiate(drop, transform.position, drop.transform.rotation);
+            }
+            Destroy(this.gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -130,10 +132,14 @@ public class Enemy : MonoBehaviour
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
-        else if (atkMode)
+        else if (atkMode && timeSinceAtk >= 2f)
         {
             Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, Time.fixedDeltaTime * moveSpeed);
             rb.MovePosition(newPosition);
+        }
+        else if (atkMode && timeSinceAtk < 2f)
+        {
+            rb.MovePosition(transform.position);
         }
     }
 
@@ -172,6 +178,7 @@ public class Enemy : MonoBehaviour
             healthBar.SetHealth(player.GetComponent<CharacterController>().health);
             myChar.sfx = "Hurt";
             myChar.PlaySFX();
+            timeSinceAtk = 0f;
         }
     }
 
@@ -213,9 +220,6 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (dropChance <= dropRate)
-        {
-            Instantiate(drop, transform.position, drop.transform.rotation);
-        }
+
     }
 }

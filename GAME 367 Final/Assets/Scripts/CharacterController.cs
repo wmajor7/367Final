@@ -56,6 +56,11 @@ public class CharacterController : MonoBehaviour
         mAnim = GetComponent<Animator>();
     }
 
+    private void Awake()
+    {
+        mAnim = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {

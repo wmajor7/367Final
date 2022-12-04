@@ -5,7 +5,7 @@ using UnityEngine;
 public class birdController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float moveSpeed = 10f;
+    private float moveSpeed = 5f;
     private Vector2 destination;
     private Vector2 forward;
     public GameObject player;
@@ -75,5 +75,13 @@ public class birdController : MonoBehaviour
     {
         returning = true;
         //rb.velocity = Vector2.MoveTowards(transform.position, destination, Time.fixedDeltaTime * moveSpeed);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+
+        }
     }
 }
