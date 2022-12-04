@@ -1740,10 +1740,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1952063024718721374, guid: e60c043519280bb499e07242c0f2bb68, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e60c043519280bb499e07242c0f2bb68, type: 3}
 --- !u!1001 &2429163480894547788
@@ -1753,10 +1749,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2429163479690556724, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2429163480177309545, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1802,10 +1794,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429163480177309546, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
-      propertyPath: drop
-      value: 
-      objectReference: {fileID: 3432607549159066905, guid: 187c006d6f58c274ca53e156cb1d58cc, type: 3}
-    - target: {fileID: 2429163480177309546, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1581608598}
@@ -1816,18 +1804,6 @@ PrefabInstance:
     - target: {fileID: 2429163480177309549, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
       propertyPath: m_Name
       value: BirdEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429163480335125048, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429163480890303468, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429163481233687956, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d666f9c4b2a7cd34494f87d8be341454, type: 3}

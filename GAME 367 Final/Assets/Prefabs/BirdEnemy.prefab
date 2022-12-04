@@ -334,7 +334,9 @@ MonoBehaviour:
   wallCheck2: {fileID: 2429163480890303468}
   wallCheck3: {fileID: 2429163479690556724}
   wallCheck4: {fileID: 2429163481233687956}
-  drop: {fileID: 0}
+  drop: {fileID: 3432607549159066905, guid: 187c006d6f58c274ca53e156cb1d58cc, type: 3}
+  knockbackPower: 100
+  knockbackDuration: 1
 --- !u!1 &2429163480335125048
 GameObject:
   m_ObjectHideFlags: 0

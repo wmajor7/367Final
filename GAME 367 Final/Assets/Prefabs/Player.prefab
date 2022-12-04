@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696192101e627534a9ebdc54ec590218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  krb: {fileID: 0}
   hitBox: {fileID: 1952063023210064198}
   SFXMngr: {fileID: 0}
   birdProj: {fileID: 1416396627016541214, guid: 5bd11b7e552ca3046a351b524c69dc8c, type: 3}
