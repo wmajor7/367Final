@@ -192,6 +192,7 @@ public class Enemy : MonoBehaviour
                 StartCoroutine(myChar.Knockback(knockbackDuration, knockbackPower, this.transform));
                 TakeDMG();
                 StartCoroutine(Damaged());
+                timeSinceAtk = 0f;
                 myChar.sfx = "Hit";
                 myChar.PlaySFX();
             }
