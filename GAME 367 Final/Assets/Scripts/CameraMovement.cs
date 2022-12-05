@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CameraMovement : MonoBehaviour
 {
     public Transform target;
+    public Transform iceTarg;
     public float smoothing;
     public Vector2 maxPos;
     public Vector2 minPos;
@@ -33,6 +34,11 @@ public class CameraMovement : MonoBehaviour
             targetPosition.x = Mathf.Clamp(targetPosition.x, minPos.x, maxPos.x);
             targetPosition.y = Mathf.Clamp(targetPosition.y, minPos.y, maxPos.y);
 
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
+        }
+        else if (transform.position != target.position && camStable)
+        {
+            Vector3 targetPosition = new Vector3(iceTarg.position.x, iceTarg.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
         }
     }
