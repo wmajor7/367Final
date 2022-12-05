@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
 
         if (!atkMode)
         {
+
             //if random number is within ranges, assign move direction
             if (movement.x == 0.0f && movement.y == 0.0f && randNum >= 1 && randNum <= 5)
             {

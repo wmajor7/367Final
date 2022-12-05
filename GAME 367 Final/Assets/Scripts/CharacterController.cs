@@ -107,7 +107,9 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            mAnim.ResetTrigger("isAttacking");
             isAttacking = true;
+            mAnim.SetTrigger("isAttacking");
             sfx = "Swing";
             PlaySFX();
         }
