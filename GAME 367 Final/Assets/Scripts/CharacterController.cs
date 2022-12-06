@@ -43,6 +43,14 @@ public class CharacterController : MonoBehaviour
 
     public Animator mAnim;
 
+
+
+    public int birdsKilled = 0;
+    private Scene currentScene;
+    public bool iceDungeon;
+
+    public int keysHeld;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +74,14 @@ public class CharacterController : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "IceDungeon")
+        {
+            iceDungeon = true;
+        }
 
         if (Input.GetAxisRaw("Horizontal") == -1.0f)
         {
@@ -225,6 +241,11 @@ public class CharacterController : MonoBehaviour
             healthBar.SetHealth(health);
             sfx = "HealthPickup";
             PlaySFX();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Key")
+        {
+            keysHeld += 1;
             Destroy(other.gameObject);
         }
     }

@@ -73,3 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraChange: {x: 0, y: -11.9}
   playerChange: {x: 0, y: -3, z: 0}
+  iceChange: {x: 0, y: -11, z: 0}
+  player: {fileID: 0}
+  myChar: {fileID: 0}
+  locked: 0

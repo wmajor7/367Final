@@ -123,6 +123,12 @@ public class Enemy : MonoBehaviour
             {
                 Instantiate(drop, transform.position, drop.transform.rotation);
             }
+
+            if (myChar.iceDungeon == true)
+            {
+                myChar.birdsKilled += 1;
+            }
+            
             Destroy(this.gameObject);
         }
     }

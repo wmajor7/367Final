@@ -9,6 +9,10 @@ public class RoomMove : MonoBehaviour
     public Vector3 iceChange;
     private CameraMovement cam;
 
+    public GameObject player;
+    public CharacterController myChar;
+    public bool locked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +25,10 @@ public class RoomMove : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+
+        if (other.CompareTag("Player"))
         {
             cam.minPos =  cam.minPos + cameraChange;
             cam.maxPos = cam.maxPos + cameraChange;

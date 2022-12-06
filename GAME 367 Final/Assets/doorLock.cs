@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class DungeonTransition : MonoBehaviour
+public class doorLock : MonoBehaviour
 {
-    public GameObject iceDoor;
-    public GameObject fireDoor;
-    private string dungeon;
+    public GameObject player;
+    public CharacterController myChar;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        myChar = player.GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -23,9 +21,10 @@ public class DungeonTransition : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && myChar.keysHeld > 0)
         {
-            SceneManager.LoadScene("IceDungeon");
+            myChar.keysHeld -= 1;
+            Destroy(this.gameObject);
         }
     }
 }

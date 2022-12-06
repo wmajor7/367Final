@@ -25,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5493114584705766858}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.861782, y: 3.4220548, z: 0.3102847}
-  m_LocalScale: {x: 0.281875, y: 1, z: 1}
+  m_LocalScale: {x: 0.281875, y: 0.85, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,3 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraChange: {x: 25, y: 0}
   playerChange: {x: 3, y: 0, z: 0}
+  iceChange: {x: 21, y: 0, z: 0}
+  player: {fileID: 0}
+  myChar: {fileID: 0}
+  locked: 0
