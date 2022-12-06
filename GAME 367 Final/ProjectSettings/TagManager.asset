@@ -15,6 +15,10 @@ TagManager:
   - HealthUpgrade
   - Key
   - Switch
+  - GrassDetector
+  - DirtDetector
+  - StoneDetector
+  - IceDetector
   layers:
   - Default
   - TransparentFX

@@ -214,8 +214,6 @@ public class Enemy : MonoBehaviour
 
     private void TakeDMG()
     {
-
-        Debug.Log("CALL");
         if (canHurt == true)
         {
             health -= 1;

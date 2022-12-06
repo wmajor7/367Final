@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
+using UnityEngine.Audio;
 
 public class CharacterController : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class CharacterController : MonoBehaviour
     public string facing;
 
     public AudioSource charSFX;
+    public AudioSource footsteps;
     public AudioClip hit;
     public AudioClip swing;
     public AudioClip death;
@@ -34,6 +36,9 @@ public class CharacterController : MonoBehaviour
     public AudioClip pickup;
     public AudioClip hurt;
     public AudioClip healthPickup;
+    public bool playing = false;
+    public bool footstepSFX = false;
+    public AudioMixer mixer;
 
     public string sfx;
 
@@ -67,7 +72,6 @@ public class CharacterController : MonoBehaviour
         facing = "up";
         mAnim = GetComponent<Animator>();
         birdCompanion.SetActive(false);
-        door = GameObject.Find("OpenDoor");
     }
 
     private void Awake()
@@ -92,18 +96,40 @@ public class CharacterController : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == -1.0f)
         {
             facing = "left";
+
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play();
+            }
         }
         else if (Input.GetAxisRaw("Horizontal") == 1.0f)
         {
             facing = "right";
+
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play();
+            }
         }
         else if (Input.GetAxisRaw("Vertical") == -1.0f)
         {
             facing = "down";
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play();
+            }
         }
         else if (Input.GetAxisRaw("Vertical") == 1.0f)
         {
             facing = "up";
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play();
+            }
+        }
+        else if (Input.GetAxisRaw("Vertical") == 0.0f && Input.GetAxisRaw("Horizontal") == 0.0f)
+        {
+            footsteps.Stop();
         }
 
         if (facing == "up")
@@ -150,11 +176,9 @@ public class CharacterController : MonoBehaviour
         }
 
 
-        if (health <= 0)
+        if (health <= 0 && !playing)
         {
-            sfx = "Death";
-            PlaySFX();
-            Reload();
+            StartCoroutine(Wait());
         }
         else if (health > maxHealth)
         {
@@ -270,8 +294,49 @@ public class CharacterController : MonoBehaviour
             timer += Time.deltaTime;
             Vector2 direction = (obj.transform.position - this.transform.position).normalized;
             krb.AddForce(-direction * knockbackPower);
-            Debug.Log("I HAVE BEEN CALLED");
             yield return 0;
+        }
+    }
+
+    public IEnumerator Wait()
+    {
+        playing = true;
+        sfx = "Death";
+        PlaySFX();
+        yield return new WaitForSeconds(1);
+        playing = false;
+        Reload();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "DirtDetector")
+        {
+            mixer.SetFloat("pitch", 0.34f);
+            mixer.SetFloat("pitchShifter", 0.75f);
+            mixer.SetFloat("FFT", 517f);
+            mixer.SetFloat("Overlap", 4.6f);
+        }
+        else if (other.gameObject.tag == "GrassDetector")
+        {
+            mixer.SetFloat("pitch", 0.34f);
+            mixer.SetFloat("pitchShifter", 1.45f);
+            mixer.SetFloat("FFT", 517f);
+            mixer.SetFloat("Overlap", 4.6f);
+        }
+        else if (other.gameObject.tag == "StoneDetector")
+        {
+            mixer.SetFloat("pitch", 0.34f);
+            mixer.SetFloat("pitchShifter", 0.50f);
+            mixer.SetFloat("FFT", 256f);
+            mixer.SetFloat("Overlap", 1.00f);
+        }
+        else if (other.gameObject.tag == "IceDetector")
+        {
+            mixer.SetFloat("pitch", 0.34f);
+            mixer.SetFloat("pitchShifter", 2.0f);
+            mixer.SetFloat("FFT", 4096f);
+            mixer.SetFloat("Overlap", 1.00f);
         }
     }
 }

@@ -35,7 +35,6 @@ public class birdController : MonoBehaviour
     private void Update()
     {
         destination = player.transform.position;
-        Debug.Log(player.transform.position);
 
         if (myChar.facing == "up")
         {
@@ -79,9 +78,10 @@ public class birdController : MonoBehaviour
     {
         if (other.gameObject.tag == "Switch")
         {
-            other.gameObject.GetComponent<SpriteRenderer>().sprite = flippedSwitch;
-            myChar.door.SetActive(true);
             Destroy(locked);
+            myChar.door.SetActive(true);
+            other.gameObject.GetComponent<SpriteRenderer>().sprite = flippedSwitch;
+            returning = true;
         }
 
         returning = true;
