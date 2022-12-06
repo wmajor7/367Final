@@ -14,6 +14,7 @@ TagManager:
   - HealthDrop
   - HealthUpgrade
   - Key
+  - Switch
   layers:
   - Default
   - TransparentFX

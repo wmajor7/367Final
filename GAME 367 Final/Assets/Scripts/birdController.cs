@@ -14,6 +14,9 @@ public class birdController : MonoBehaviour
     private float fireX;
     private float fireY;
 
+    public Sprite flippedSwitch;
+    public GameObject locked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,7 @@ public class birdController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
         myChar = player.GetComponent<CharacterController>();
+        locked = GameObject.Find("Lock");
     }
 
     private void Update()
@@ -73,15 +77,23 @@ public class birdController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.tag == "Switch")
+        {
+            other.gameObject.GetComponent<SpriteRenderer>().sprite = flippedSwitch;
+            myChar.door.SetActive(true);
+            Destroy(locked);
+        }
+
         returning = true;
         //rb.velocity = Vector2.MoveTowards(transform.position, destination, Time.fixedDeltaTime * moveSpeed);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-
+            
         }
     }
 }

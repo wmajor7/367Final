@@ -10,6 +10,7 @@ public class birdPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         myChar = player.GetComponent<CharacterController>();
     }
 

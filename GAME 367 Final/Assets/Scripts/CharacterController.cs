@@ -51,6 +51,10 @@ public class CharacterController : MonoBehaviour
 
     public int keysHeld;
 
+    public GameObject birdCompanion;
+
+    public GameObject door;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +66,8 @@ public class CharacterController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         facing = "up";
         mAnim = GetComponent<Animator>();
+        birdCompanion.SetActive(false);
+        door = GameObject.Find("OpenDoor");
     }
 
     private void Awake()
@@ -164,6 +170,10 @@ public class CharacterController : MonoBehaviour
             birdOnScreen = true;
         }
 
+        if (iceDungeon == true && birdsKilled >= 4 && hasBird == false)
+        {
+            birdCompanion.SetActive(true);
+        }
     }
 
     private void FixedUpdate()

@@ -98,6 +98,7 @@ MonoBehaviour:
   player: {fileID: 0}
   returning: 0
   myChar: {fileID: 0}
+  flippedSwitch: {fileID: -664333209, guid: e94b114e3267db94c83f9bd4f27359bb, type: 3}
 --- !u!61 &-8691118471384874277
 BoxCollider2D:
   m_ObjectHideFlags: 0
