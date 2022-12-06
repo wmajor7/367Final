@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-8943637526889360356
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7b664aa83547b6d4fa500879443bd4a7
+  m_EffectName: Attenuation
+  m_MixLevel: 0e96ac5fd91ec264c8de07e3107986ba
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-8242568430090616310
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -36,6 +50,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &-970952395975426365
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bird
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: f300102806d18b14a877dff511ec5fbc
+  m_Children: []
+  m_Volume: db38b2391109d39458e72c47f7d838d9
+  m_Pitch: 1f5cab639844da9459d77225eb4e17df
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -8943637526889360356}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -66,6 +99,7 @@ AudioMixerController:
     - 80854cd427243374fae41707bcf3c8cc
     - c7e8ef5ef24f10d4d858b9808edfbff7
     - 92bbda6dc2d0e4245a20ebc343c1da91
+    - f300102806d18b14a877dff511ec5fbc
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -82,6 +116,7 @@ AudioMixerGroupController:
   - {fileID: 2723469610489662839}
   - {fileID: 6516600903551846589}
   - {fileID: 906387737709462385}
+  - {fileID: -970952395975426365}
   m_Volume: 2603a8ed197694e48bed0e87f2095267
   m_Pitch: fdc317cf5365093448183850dd9a676a
   m_Send: 00000000000000000000000000000000
