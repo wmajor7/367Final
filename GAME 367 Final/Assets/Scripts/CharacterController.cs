@@ -15,6 +15,8 @@ public class CharacterController : MonoBehaviour
     public GameObject birdProj;
     public GameObject launchOri;
     public GameObject center;
+    public GameObject lava;
+    public GameObject snowball;
 
     public float runSpeed = 5.0f;
 
@@ -92,6 +94,7 @@ public class CharacterController : MonoBehaviour
         cVis = false;
         birdFriend.SetActive(false);
         doorOpen = GameObject.Find("DoorOpen").GetComponent<AudioSource>();
+        snowball.SetActive(false);
     }
 
     private void Awake()
@@ -99,6 +102,8 @@ public class CharacterController : MonoBehaviour
         mAnim = GetComponent<Animator>();
         cVis = false;
         birdFriend.SetActive(false);
+
+        snowball.SetActive(false);
 
         currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
@@ -215,9 +220,6 @@ public class CharacterController : MonoBehaviour
             birdOnScreen = true;
         }
 
-        Debug.Log(iceDungeon);
-        Debug.Log(birdsKilled);
-
         if (iceDungeon == true && birdsKilled == 4)
         {
             cVis = true;
@@ -304,7 +306,14 @@ public class CharacterController : MonoBehaviour
 
         BGM.volume = 0;
         BGM.Play();
-        StartCoroutine(FadeAudioSource.StartFade(BGM, 1f, 20f));
+        if (SceneManager.GetActiveScene().name == "IceDungeon")
+        {
+            StartCoroutine(FadeAudioSource.StartFade(BGM, 1f, 0.05f));
+        }
+        else if (SceneManager.GetActiveScene().name != "IceDungeon")
+        {
+            StartCoroutine(FadeAudioSource.StartFade(BGM, 1f, 1f));
+        }
     }
     public void PlayBattle()
     {
@@ -360,10 +369,11 @@ public class CharacterController : MonoBehaviour
             key.Play();
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.tag == "End" && hasSnowball == true)
+        else if (other.gameObject.tag == "Snowball")
         {
-
-        }
+            hasSnowball = true;
+            Destroy(other.gameObject);
+        }    
     }
 
     public IEnumerator Knockback(float knockbackDuration, float knockbackPower, Transform obj)
@@ -420,5 +430,23 @@ public class CharacterController : MonoBehaviour
             mixer.SetFloat("FFT", 4096f);
             mixer.SetFloat("Overlap", 1.00f);
         }
+        else if (other.gameObject.tag == "End" && hasSnowball == true)
+        {
+            canMove = false;
+            snowball.SetActive(true);
+            Camera.main.GetComponent<CameraMovement>().target = snowball.transform;
+            lava.gameObject.GetComponent<playHiss>().play = true;
+            lava.gameObject.GetComponent<playHiss>().PlayHiss();
+            StartCoroutine(CoolLava());
+        }
+    }
+
+    IEnumerator CoolLava()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(lava);
+        Destroy(snowball);
+        Camera.main.GetComponent<CameraMovement>().target = this.transform;
+        canMove = true;
     }
 }

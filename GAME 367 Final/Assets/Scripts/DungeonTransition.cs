@@ -24,9 +24,17 @@ public class DungeonTransition : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && SceneManager.GetActiveScene().name == "IceDungeon")
+        {
+            SceneManager.LoadScene("Overworld2");
+        }
+        else if (other.gameObject.tag == "Player" && SceneManager.GetActiveScene().name == "Overworld")
         {
             SceneManager.LoadScene("IceDungeon");
+        } 
+        else if (other.gameObject.tag == "Player" && SceneManager.GetActiveScene().name == "Overworld2")
+        {
+            SceneManager.LoadScene("FireDungeon");
         }
     }
 }
