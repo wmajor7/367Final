@@ -16,6 +16,7 @@ public class birdController : MonoBehaviour
 
     public Sprite flippedSwitch;
     public GameObject locked;
+    public AudioSource door;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class birdController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         myChar = player.GetComponent<CharacterController>();
         locked = GameObject.Find("Lock");
+        door = GameObject.Find("DoorOpen").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -79,6 +81,7 @@ public class birdController : MonoBehaviour
         if (other.gameObject.tag == "Switch")
         {
             Destroy(locked);
+            door.Play();
             myChar.door.SetActive(true);
             other.gameObject.GetComponent<SpriteRenderer>().sprite = flippedSwitch;
             returning = true;

@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
     private float timeSinceAtk = 0f;
 
-    public AudioSource birdSFX;
+    private AudioSource birdSFX;
     public AudioClip flap;
     public AudioClip caw;
     public AudioClip death;
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
     public AudioClip isHit;
 
     // Start is called before the first frame update
+    [System.Obsolete]
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,6 +55,8 @@ public class Enemy : MonoBehaviour
         myChar = player.GetComponent<CharacterController>();
         canHurt = true;
         dropChance = Random.Range(0f, 1f);
+        birdSFX = transform.FindChild("BirdSFX").GetComponent<AudioSource>();
+        player = GameObject.Find("Player");
     }
 
 
@@ -62,6 +65,7 @@ public class Enemy : MonoBehaviour
     {
         timeSinceAtk += Time.deltaTime;
         destination = player.transform.position;
+
 
         //if the random number is zero, wait 2 seconds and assign a new random number
         if (randNum == 0)
@@ -136,7 +140,9 @@ public class Enemy : MonoBehaviour
             {
                 myChar.birdsKilled += 1;
             }
-            
+
+            birdSFX.clip = death;
+            PlaySFX();
             Destroy(this.gameObject);
         }
     }
@@ -147,12 +153,12 @@ public class Enemy : MonoBehaviour
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
-        else if (atkMode && timeSinceAtk >= 2f)
+        else if (atkMode && timeSinceAtk >= 0.5f)
         {
             Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, Time.fixedDeltaTime * moveSpeed);
             rb.MovePosition(newPosition);
         }
-        else if (atkMode && timeSinceAtk < 2f)
+        else if (atkMode && timeSinceAtk < 0.5f)
         {
             rb.MovePosition(transform.position);
         }
@@ -209,6 +215,8 @@ public class Enemy : MonoBehaviour
                 timeSinceAtk = 0f;
                 myChar.sfx = "Hit";
                 myChar.PlaySFX();
+                birdSFX.clip = caw;
+                PlaySFX();
             }
         }
     }
@@ -234,6 +242,6 @@ public class Enemy : MonoBehaviour
 
     private void PlaySFX()
     {
-
+        birdSFX.Play();
     }
 }

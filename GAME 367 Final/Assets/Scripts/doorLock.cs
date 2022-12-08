@@ -29,6 +29,7 @@ public class doorLock : MonoBehaviour
         {
             myChar.keysHeld -= 1;
             door.SetActive(true);
+            other.gameObject.GetComponent<CharacterController>().doorOpen.Play();
             Destroy(this.gameObject);
         }
     }

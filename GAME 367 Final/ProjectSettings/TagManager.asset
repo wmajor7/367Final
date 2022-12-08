@@ -19,6 +19,7 @@ TagManager:
   - DirtDetector
   - StoneDetector
   - IceDetector
+  - End
   layers:
   - Default
   - TransparentFX

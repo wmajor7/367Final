@@ -7,6 +7,7 @@ public class DungeonTransition : MonoBehaviour
 {
     public GameObject iceDoor;
     public GameObject fireDoor;
+    public GameObject OverworldDoor;
     private string dungeon;
 
     // Start is called before the first frame update

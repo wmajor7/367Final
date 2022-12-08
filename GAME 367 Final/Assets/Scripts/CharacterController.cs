@@ -29,6 +29,10 @@ public class CharacterController : MonoBehaviour
 
     public AudioSource charSFX;
     public AudioSource footsteps;
+    public AudioSource BGM;
+    public AudioSource battle;
+    public AudioSource key;
+    public AudioSource doorOpen;
     public AudioClip hit;
     public AudioClip swing;
     public AudioClip death;
@@ -36,6 +40,9 @@ public class CharacterController : MonoBehaviour
     public AudioClip pickup;
     public AudioClip hurt;
     public AudioClip healthPickup;
+    public AudioClip overworldBGM;
+    public AudioClip iceBGM;
+    public AudioClip battleBGM;
     public bool playing = false;
     public bool footstepSFX = false;
     public AudioMixer mixer;
@@ -56,9 +63,18 @@ public class CharacterController : MonoBehaviour
 
     public int keysHeld;
 
-    public GameObject birdCompanion;
+    public GameObject birdFriend;
+    public bool cVis;
 
     public GameObject door;
+
+    public bool inBattle;
+    public bool battlePlaying;
+    public bool BGMplaying;
+
+    public int attackers;
+
+    public bool hasSnowball;
 
     // Start is called before the first frame update
     void Start()
@@ -71,12 +87,25 @@ public class CharacterController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         facing = "up";
         mAnim = GetComponent<Animator>();
-        birdCompanion.SetActive(false);
+        battlePlaying = false;
+        BGMplaying = true;
+        cVis = false;
+        birdFriend.SetActive(false);
+        doorOpen = GameObject.Find("DoorOpen").GetComponent<AudioSource>();
     }
 
     private void Awake()
     {
         mAnim = GetComponent<Animator>();
+        cVis = false;
+        birdFriend.SetActive(false);
+
+        currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        if (sceneName == "IceDungeon")
+        {
+            iceDungeon = true;
+        }
     }
 
     // Update is called once per frame
@@ -84,14 +113,6 @@ public class CharacterController : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
-
-        if (sceneName == "IceDungeon")
-        {
-            iceDungeon = true;
-        }
 
         if (Input.GetAxisRaw("Horizontal") == -1.0f)
         {
@@ -194,10 +215,41 @@ public class CharacterController : MonoBehaviour
             birdOnScreen = true;
         }
 
-        if (iceDungeon == true && birdsKilled >= 4 && hasBird == false)
+        Debug.Log(iceDungeon);
+        Debug.Log(birdsKilled);
+
+        if (iceDungeon == true && birdsKilled == 4)
         {
-            birdCompanion.SetActive(true);
+            cVis = true;
         }
+
+        if (cVis)
+        {
+            birdFriend.SetActive(true);
+        }
+        else if (!cVis)
+        {
+            birdFriend.SetActive(false);
+        }    
+
+        if (attackers > 0)
+        {
+            inBattle = true;
+        }
+        else if (attackers <= 0)
+        {
+            inBattle = false;
+        }
+
+        if (inBattle == true && BGM.isPlaying)
+        {
+            PlayBattle();
+        }
+        else if (!inBattle && battle.isPlaying)
+        {
+            PlayBGM();
+        }
+
     }
 
     private void FixedUpdate()
@@ -242,6 +294,31 @@ public class CharacterController : MonoBehaviour
         charSFX.Play();
     }
 
+    public void PlayBGM()
+    {
+        StartCoroutine(FadeAudioSource.StartFade(battle, 1f, 0f));
+        if (battle.volume == 0)
+        {
+            battle.Pause();
+        }
+
+        BGM.volume = 0;
+        BGM.Play();
+        StartCoroutine(FadeAudioSource.StartFade(BGM, 1f, 20f));
+    }
+    public void PlayBattle()
+    {
+        StartCoroutine(FadeAudioSource.StartFade(BGM, 1f, 0f));
+        if(BGM.volume == 0)
+        {
+            BGM.Pause();
+        }
+
+        battle.volume = 0;
+        battle.Play();
+        StartCoroutine(FadeAudioSource.StartFade(battle, 1f, 20f));   
+    }
+
     public void Reload()
     {
         Scene scene = SceneManager.GetActiveScene();
@@ -280,7 +357,12 @@ public class CharacterController : MonoBehaviour
         else if (other.gameObject.tag == "Key")
         {
             keysHeld += 1;
+            key.Play();
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "End" && hasSnowball == true)
+        {
+
         }
     }
 

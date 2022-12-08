@@ -110,8 +110,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952063023210064198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.035279553, y: 1.6052213, z: 0}
-  m_LocalScale: {x: 1.7103722, y: 1.2663548, z: 2.4121044}
+  m_LocalPosition: {x: -0.035279553, y: 1.363, z: 0}
+  m_LocalScale: {x: 1.3469181, y: 0.8547895, z: 2.4121044}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7633667309978151001}
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952063023210064198}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -273,7 +273,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 501
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -333,18 +333,32 @@ MonoBehaviour:
   isAttacking: 0
   facing: 
   charSFX: {fileID: 0}
+  footsteps: {fileID: 0}
+  BGM: {fileID: 0}
   hit: {fileID: 8300000, guid: 598d9621e0b36ce4193ec2b317f0dbbc, type: 3}
   swing: {fileID: 8300000, guid: 2b4c0dfa63547ae49adba51690ddd19a, type: 3}
-  death: {fileID: 8300000, guid: dde52440f56afaa46acabb92e38612eb, type: 3}
+  death: {fileID: 8300000, guid: a2af5664aa5c38f48bdf3b7f765f2e66, type: 3}
   fall: {fileID: 8300000, guid: ced3d755134175440a3eecae40594fca, type: 3}
   pickup: {fileID: 8300000, guid: e3cd930013f25cc4481b12a224c768c1, type: 3}
   hurt: {fileID: 8300000, guid: 359e12dbd7c0f4442baa6ceee016b422, type: 3}
   healthPickup: {fileID: 8300000, guid: c683e1c45db225d45bd0f804170954e7, type: 3}
+  overworldBGM: {fileID: 8300000, guid: 8ec94c7902580f44bbc14f89ebc0d0ad, type: 3}
+  iceBGM: {fileID: 8300000, guid: b754cf614c9b64743b855ca9eeb9e5af, type: 3}
+  battleBGM: {fileID: 8300000, guid: c9cf7409ba97caf458e8d76b7786d225, type: 3}
+  playing: 0
+  footstepSFX: 0
+  mixer: {fileID: 24100000, guid: f7bf7ded264d01f4f9c08d1e9c9efedc, type: 2}
   sfx: 
   hasBird: 0
   launchVelY: 700
   birdOnScreen: 0
   mAnim: {fileID: 0}
+  birdsKilled: 0
+  iceDungeon: 0
+  keysHeld: 0
+  birdCompanion: {fileID: 0}
+  door: {fileID: 0}
+  inBattle: 0
 --- !u!61 &1952063024718721363
 BoxCollider2D:
   m_ObjectHideFlags: 0
